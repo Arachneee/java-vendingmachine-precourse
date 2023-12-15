@@ -1,6 +1,7 @@
 package vendingmachine.controller;
 
 
+import vendingmachine.domain.Coins;
 import vendingmachine.domain.Money;
 import vendingmachine.util.ExceptionRoofer;
 import vendingmachine.view.InputView;
@@ -18,6 +19,7 @@ public class VendingMachineController {
 
     public void run() {
         Money money = getHoldingMoney();
+        Coins coins = Coins.from(money);
 
     }
 

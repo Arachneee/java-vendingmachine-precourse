@@ -34,4 +34,8 @@ public class Money {
             throw new VendingMachineException(ErrorMessage.NOT_UNIT);
         }
     }
+
+    public int getMoney() {
+        return money;
+    }
 }
