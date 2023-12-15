@@ -36,6 +36,10 @@ public class Item {
         return count > 0;
     }
 
+    public boolean isName(final String name) {
+        return this.name.equals(name);
+    }
+
     public Money getMoney() {
         return money;
     }

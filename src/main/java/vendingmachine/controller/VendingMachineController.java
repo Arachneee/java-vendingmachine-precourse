@@ -9,6 +9,7 @@ import vendingmachine.domain.item.Item;
 import vendingmachine.domain.item.ItemParser;
 import vendingmachine.domain.item.ItemRepository;
 import vendingmachine.dto.CoinsDto;
+import vendingmachine.service.ItemService;
 import vendingmachine.util.ExceptionRoofer;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
@@ -17,10 +18,12 @@ public class VendingMachineController {
 
     private final InputView inputView;
     private final OutputView outputView;
+    private final ItemService itemService;
 
-    public VendingMachineController(final InputView inputView, final OutputView outputView) {
+    public VendingMachineController(final InputView inputView, final OutputView outputView, final ItemService itemService) {
         this.inputView = inputView;
         this.outputView = outputView;
+        this.itemService = itemService;
     }
 
     public void run() {
@@ -37,12 +40,20 @@ public class VendingMachineController {
         while (true) {
             outputView.printEnterMoney(enterMoney.getMoney());
             if (cantBayItem(enterMoney)) {
+                // 잔돈 출력
                 break;
             }
-
+            buyItem();
         }
 
 
+    }
+
+    private void buyItem() {
+        ExceptionRoofer.run(() -> {
+            final String itemName = inputView.readItemName();
+            itemService.buyItemByName(itemName);
+        });
     }
 
     private static boolean cantBayItem(final Money enterMoney) {
