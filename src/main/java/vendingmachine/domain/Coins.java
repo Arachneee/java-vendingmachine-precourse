@@ -1,8 +1,12 @@
 package vendingmachine.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import vendingmachine.Coin;
 
 public class Coins {
@@ -38,5 +42,18 @@ public class Coins {
         return coins.entrySet().stream()
                 .mapToInt(entry -> entry.getKey().getAmount() * entry.getValue())
                 .sum();
+    }
+
+    public List<List<Integer>> getCoinCount() {
+        return coins.entrySet().stream()
+                .map(Coins::getCoinCount)
+                .collect(Collectors.toList());
+    }
+
+    private static List<Integer> getCoinCount(final Entry<Coin, Integer> entry) {
+        List<Integer> coinCount = new ArrayList<>();
+        coinCount.add(entry.getKey().getAmount());
+        coinCount.add(entry.getValue());
+        return coinCount;
     }
 }
