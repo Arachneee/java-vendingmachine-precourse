@@ -16,7 +16,7 @@ public class VendingMachineController {
     }
 
     public void run() {
-        String money = inputView.readHoldingMoney();
-        Parser.c
+        String moneySource = inputView.readHoldingMoney();
+        int money = Parser.convertToInt(moneySource);
     }
 }
