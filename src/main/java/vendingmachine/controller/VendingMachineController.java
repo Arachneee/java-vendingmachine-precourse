@@ -43,16 +43,16 @@ public class VendingMachineController {
                 // 잔돈 출력
                 break;
             }
-            buyItem();
+            buyItem(enterMoney);
         }
 
 
     }
 
-    private void buyItem() {
+    private void buyItem(final Money enterMoney) {
         ExceptionRoofer.run(() -> {
             final String itemName = inputView.readItemName();
-            itemService.buyItemByName(itemName);
+            itemService.buyItemByName(itemName, enterMoney);
         });
     }
 
