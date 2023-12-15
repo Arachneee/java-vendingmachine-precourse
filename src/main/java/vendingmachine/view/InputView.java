@@ -10,8 +10,14 @@ public class InputView {
         return Console.readLine();
     }
 
+    public String readItem() {
+        System.out.println(Request.ITEM.value);
+        return Console.readLine();
+    }
+
     private enum Request {
-        HOLDING_MONEY("자판기가 보유하고 있는 금액을 입력해 주세요.");
+        HOLDING_MONEY("자판기가 보유하고 있는 금액을 입력해 주세요."),
+        ITEM("상품명과 가격, 수량을 입력해 주세요.");
         private final String value;
 
         Request(final String value) {
