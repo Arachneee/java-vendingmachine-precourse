@@ -2,6 +2,7 @@ package vendingmachine.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 import vendingmachine.domain.Money;
 import vendingmachine.domain.coin.Coins;
 import vendingmachine.domain.item.Item;
@@ -27,10 +28,26 @@ public class VendingMachineController {
         Coins coins = Coins.from(holdingMoney);
         final CoinsDto coinsDto = CoinsDto.from(coins);
         outputView.printCoins(coinsDto);
+
         List<Item> item = getItems();
         ItemRepository.addItems(item);
+
         Money enterMoney = getEnterMoney();
-        outputView.printEnterMoney(enterMoney.getMoney());
+
+        while (true) {
+            outputView.printEnterMoney(enterMoney.getMoney());
+            if (cantBayItem(enterMoney)) {
+                break;
+            }
+
+        }
+
+
+    }
+
+    private static boolean cantBayItem(final Money enterMoney) {
+        final Optional<Money> minMoney = ItemRepository.getItemMinMoney();
+        return minMoney.filter(enterMoney::isUnder).isPresent();
     }
 
     private Money getEnterMoney() {

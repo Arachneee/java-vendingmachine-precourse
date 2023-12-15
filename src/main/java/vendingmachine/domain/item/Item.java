@@ -10,7 +10,7 @@ public class Item {
     private static final Money MIN_MONEY = new Money("100");
     private final String name;
     private final Money money;
-    private final int count;
+    private int count;
 
     public Item(final String name, final Money money, final int count) {
         validateCount(count);
@@ -30,5 +30,13 @@ public class Item {
         if (money.isUnder(MIN_MONEY)) {
             throw new VendingMachineException(ErrorMessage.UNDER_ITEM_MIN_MONEY);
         }
+    }
+
+    public boolean isNotEmpty() {
+        return count > 0;
+    }
+
+    public Money getMoney() {
+        return money;
     }
 }

@@ -15,6 +15,8 @@ public final class ItemParser {
             "^\\[[가-힣]+,[0-9]+,[0-9]+\\](?:;\\[[가-힣]+,[0-9]+,[0-9]+\\])*$");
     private static final String ITEMS_DELIMITER = ";";
     private static final String ITEM_DELIMITER = ",";
+    private static final String ITEM_PREFIX = "[";
+    private static final String ITEM_SUFFIX = "]";
     private ItemParser() {
     }
 
@@ -36,7 +38,10 @@ public final class ItemParser {
         throw new VendingMachineException(ErrorMessage.INVALID_ITEM_FORMAT);
     }
 
-    private static Item convertToItem(final String item) {
+    private static Item convertToItem(String item) {
+        item = item.replace(ITEM_PREFIX, "")
+                .replace(ITEM_SUFFIX, "");
+
         final String[] itemSource = item.split(ITEM_DELIMITER);
         final Money money = new Money(itemSource[1]);
         final int count = convertToInt(itemSource[2]);

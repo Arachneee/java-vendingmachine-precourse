@@ -3,7 +3,7 @@ package vendingmachine.domain;
 import vendingmachine.exception.ErrorMessage;
 import vendingmachine.exception.VendingMachineException;
 
-public class Money {
+public class Money implements Comparable<Money> {
 
     private static final int UNIT = 10;
     private final int money;
@@ -35,11 +35,16 @@ public class Money {
         }
     }
 
+    public boolean isUnder(Money other) {
+        return this.money < other.money;
+    }
+
     public int getMoney() {
         return money;
     }
 
-    public boolean isUnder(Money other) {
-        return this.money < other.money;
+    @Override
+    public int compareTo(Money o) {
+        return this.money - o.money;
     }
 }
