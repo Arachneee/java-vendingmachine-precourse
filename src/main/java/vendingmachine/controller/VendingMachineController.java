@@ -6,6 +6,7 @@ import vendingmachine.domain.Money;
 import vendingmachine.domain.coin.Coins;
 import vendingmachine.domain.item.Item;
 import vendingmachine.domain.item.ItemParser;
+import vendingmachine.domain.item.ItemRepository;
 import vendingmachine.dto.CoinsDto;
 import vendingmachine.util.ExceptionRoofer;
 import vendingmachine.view.InputView;
@@ -27,7 +28,7 @@ public class VendingMachineController {
         final CoinsDto coinsDto = CoinsDto.from(coins);
         outputView.printCoins(coinsDto);
         List<Item> item = getItems();
-
+        ItemRepository.addItems(item);
     }
 
     private Money getHoldingMoney() {
