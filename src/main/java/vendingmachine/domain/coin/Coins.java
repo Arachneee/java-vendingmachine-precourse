@@ -1,6 +1,5 @@
 package vendingmachine.domain.coin;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import vendingmachine.domain.Money;
+import vendingmachine.domain.NumberGenerator;
 
 public class Coins {
 
@@ -17,12 +17,12 @@ public class Coins {
         this.coins = coins;
     }
 
-    public static Coins from(final Money money) {
+    public static Coins createByRandom(final Money money, final NumberGenerator numberGenerator) {
         Map<Coin, Integer> coins = initCoins();
         while (true) {
-            Coin coin = getRandomCoin();
+            Coin coin = getRandomCoin(numberGenerator);
             coins.put(coin, coins.get(coin) + 1);
-            int coinsMoney = getCoinsMoney(coins);
+            final int coinsMoney = getCoinsMoney(coins);
             if (coinsMoney == money.getMoney()) {
                 break;
             }
@@ -41,8 +41,8 @@ public class Coins {
         return coins;
     }
 
-    private static Coin getRandomCoin() {
-        final int number = Randoms.pickNumberInList(Coin.numbers());
+    private static Coin getRandomCoin(final NumberGenerator numberGenerator) {
+        final int number = numberGenerator.generate(Coin.amounts());
         return Coin.from(number);
     }
 
@@ -74,6 +74,7 @@ public class Coins {
             }
             int count = Math.min(coins.get(coin), money.getMoney() / coin.getAmount());
             money.subMoney(new Money(count * coin.getAmount()));
+            coins.put(coin, coins.get(coin) - count);
             remainCoins.put(coin, count);
         }
         return new Coins(remainCoins);

@@ -7,29 +7,28 @@ import vendingmachine.exception.ErrorMessage;
 import vendingmachine.exception.VendingMachineException;
 
 public enum Coin {
-    COIN_500(500, 1),
-    COIN_100(100, 2),
-    COIN_50(50, 3),
-    COIN_10(10, 4);
+    COIN_500(500),
+    COIN_100(100),
+    COIN_50(50),
+    COIN_10(10);
 
     private final int amount;
-    private final int number;
 
-    Coin(final int amount, final int number) {
+
+    Coin(final int amount) {
         this.amount = amount;
-        this.number = number;
     }
 
-    public static Coin from(final int number) {
+    public static Coin from(final int amount) {
         return Arrays.stream(values())
-                .filter(value -> value.number == number)
+                .filter(value -> value.amount == amount)
                 .findAny()
                 .orElseThrow(() -> new VendingMachineException(ErrorMessage.INVALID_COIN_NUMBER));
     }
 
-    public static List<Integer> numbers() {
+    public static List<Integer> amounts() {
         return Arrays.stream(values())
-                .map(value -> value.number)
+                .map(value -> value.amount)
                 .collect(Collectors.toList());
     }
 

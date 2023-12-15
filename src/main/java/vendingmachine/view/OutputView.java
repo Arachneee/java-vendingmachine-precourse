@@ -16,7 +16,7 @@ public class OutputView {
     }
 
     public void printEnterMoney(final int money) {
-        System.out.printf(Response.ENTER_MONEY.getValueForFormat(), money);
+        System.out.printf(System.lineSeparator() + Response.ENTER_MONEY.getValueForFormat(), money);
     }
 
     public void printRemainCoins(final CoinsDto remainCoinsDto) {

@@ -1,5 +1,6 @@
 package vendingmachine.service;
 
+import java.util.List;
 import vendingmachine.domain.Money;
 import vendingmachine.domain.item.Item;
 import vendingmachine.domain.item.ItemRepository;
@@ -8,9 +9,27 @@ import vendingmachine.exception.VendingMachineException;
 
 public class ItemService {
 
+    private final ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+
+    public void saveItem(final List<Item> item) {
+        itemRepository.addItems(item);
+    }
+
+    public boolean cantBayItem(final Money enterMoney) {
+        try {
+            final Money minMoney = itemRepository.getItemMinMoney();
+            return enterMoney.isUnder(minMoney);
+        } catch (VendingMachineException e) {
+            return true;
+        }
+    }
 
     public void buyItemByName(final String itemName, Money enterMoney) {
-        Item item = ItemRepository.findByName(itemName);
+        Item item = itemRepository.findByName(itemName);
         validateEnoughMoney(enterMoney, item);
         item.subCount();
         enterMoney.subMoney(item.getMoney());

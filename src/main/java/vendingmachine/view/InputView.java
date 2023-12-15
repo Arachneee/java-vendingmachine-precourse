@@ -16,7 +16,7 @@ public class InputView {
     }
 
     public String readEnterMoney() {
-        System.out.println(Request.ENTER_MONEY.value);
+        System.out.println(System.lineSeparator() + Request.ENTER_MONEY.value);
         return Console.readLine();
     }
 
