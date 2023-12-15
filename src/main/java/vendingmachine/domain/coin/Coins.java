@@ -11,7 +11,7 @@ import vendingmachine.domain.NumberGenerator;
 
 public class Coins {
 
-    private Map<Coin, Integer> coins;
+    private final Map<Coin, Integer> coins;
 
     private Coins(Map<Coin, Integer> coins) {
         this.coins = coins;
