@@ -38,4 +38,8 @@ public class Money {
     public int getMoney() {
         return money;
     }
+
+    public boolean isUnder(Money other) {
+        return this.money < other.money;
+    }
 }

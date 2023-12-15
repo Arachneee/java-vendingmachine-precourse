@@ -8,7 +8,8 @@ public enum ErrorMessage {
     INVALID_COIN_NUMBER("코인 숫자가 잘못되었습니다."),
     INVALID_ITEM_FORMAT("아이템 입력 형식이 잘못되었습니다."),
     NEGATIVE_COUNT("수량이 음수일 수 없습니다."),
-    NOT_NUMBER_COUNT("수량은 숫자여야 합니다.");
+    NOT_NUMBER_COUNT("수량은 숫자여야 합니다."),
+    UNDER_ITEM_MIN_MONEY("가격 100원 미만은 생성할 수 없습니다.");
 
     private static final String PREFIX = "[ERROR] ";
     private final String message;
