@@ -8,6 +8,12 @@ public class Money implements Comparable<Money> {
     private static final int UNIT = 10;
     private int money;
 
+    public Money(final int money) {
+        validateSize(money);
+        validateUnit(money);
+        this.money = money;
+    }
+
     public Money(final String source) {
         final int money = convertToInt(source);
         validateSize(money);

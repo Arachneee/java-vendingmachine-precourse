@@ -18,19 +18,27 @@ public class Coins {
     }
 
     public static Coins from(final Money money) {
-        Map<Coin, Integer> coins = new HashMap<>();
+        Map<Coin, Integer> coins = initCoins();
         while (true) {
             Coin coin = getRandomCoin();
-            coins.put(coin, coins.getOrDefault(coin, 0) + 1);
+            coins.put(coin, coins.get(coin) + 1);
             int coinsMoney = getCoinsMoney(coins);
             if (coinsMoney == money.getMoney()) {
                 break;
             }
             if (coinsMoney > money.getMoney()) {
-                coins = new HashMap<>();
+                coins = initCoins();
             }
         }
         return new Coins(coins);
+    }
+
+    private static Map<Coin, Integer> initCoins() {
+        Map<Coin, Integer> coins = new HashMap<>();
+        for (Coin coin : Coin.values()) {
+            coins.put(coin, 0);
+        }
+        return coins;
     }
 
     private static Coin getRandomCoin() {
@@ -46,14 +54,28 @@ public class Coins {
 
     public List<List<Integer>> getCoinCount() {
         return coins.entrySet().stream()
-                .map(Coins::getCoinCount)
+                .map(this::getCoinCount)
                 .collect(Collectors.toList());
     }
 
-    private static List<Integer> getCoinCount(final Entry<Coin, Integer> entry) {
+    private List<Integer> getCoinCount(final Entry<Coin, Integer> entry) {
         List<Integer> coinCount = new ArrayList<>();
         coinCount.add(entry.getKey().getAmount());
         coinCount.add(entry.getValue());
         return coinCount;
+    }
+
+    public Coins getRemainCoins(Money money) {
+        Map<Coin, Integer> remainCoins = new HashMap<>();
+
+        for (Coin coin : Coin.values()) {
+            if (coins.get(coin) == 0 || coin.getAmount() > money.getMoney()) {
+                continue;
+            }
+            int count = Math.min(coins.get(coin), money.getMoney() / coin.getAmount());
+            money.subMoney(new Money(count * coin.getAmount()));
+            remainCoins.put(coin, count);
+        }
+        return new Coins(remainCoins);
     }
 }
