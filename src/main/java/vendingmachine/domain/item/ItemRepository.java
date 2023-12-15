@@ -8,7 +8,7 @@ import vendingmachine.exception.VendingMachineException;
 
 public class ItemRepository {
 
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     public void addItems(final List<Item> item) {
         items.addAll(item);
