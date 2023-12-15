@@ -23,12 +23,20 @@ public class VendingMachineController {
     }
 
     public void run() {
-        Money money = getHoldingMoney();
-        Coins coins = Coins.from(money);
+        Money holdingMoney = getHoldingMoney();
+        Coins coins = Coins.from(holdingMoney);
         final CoinsDto coinsDto = CoinsDto.from(coins);
         outputView.printCoins(coinsDto);
         List<Item> item = getItems();
         ItemRepository.addItems(item);
+        Money enterMoney = getEnterMoney();
+    }
+
+    private Money getEnterMoney() {
+        return ExceptionRoofer.supply(() -> {
+            String enterMoney = inputView.readEnterMoney();
+            return new Money(enterMoney);
+        });
     }
 
     private Money getHoldingMoney() {
