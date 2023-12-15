@@ -12,8 +12,8 @@ public class ItemService {
     public void buyItemByName(final String itemName, Money enterMoney) {
         Item item = ItemRepository.findByName(itemName);
         validateEnoughMoney(enterMoney, item);
-
-
+        item.subCount();
+        enterMoney.subMoney(item.getMoney());
     }
 
     private static void validateEnoughMoney(Money enterMoney, Item item) {

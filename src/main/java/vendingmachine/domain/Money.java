@@ -6,7 +6,7 @@ import vendingmachine.exception.VendingMachineException;
 public class Money implements Comparable<Money> {
 
     private static final int UNIT = 10;
-    private final int money;
+    private int money;
 
     public Money(final String source) {
         final int money = convertToInt(source);
@@ -23,19 +23,23 @@ public class Money implements Comparable<Money> {
         }
     }
 
-    private static void validateSize(int money) {
+    private static void validateSize(final int money) {
         if (money < UNIT) {
             throw new VendingMachineException(ErrorMessage.NOT_ENOUGH_MONEY);
         }
     }
 
-    private static void validateUnit(int money) {
+    private static void validateUnit(final int money) {
         if (money % UNIT != 0) {
             throw new VendingMachineException(ErrorMessage.NOT_UNIT);
         }
     }
 
-    public boolean isUnder(Money other) {
+    public void subMoney(final Money other) {
+        this.money -= other.money;
+    }
+
+    public boolean isUnder(final Money other) {
         return this.money < other.money;
     }
 

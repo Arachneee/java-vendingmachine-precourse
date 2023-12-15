@@ -43,4 +43,8 @@ public class Item {
     public Money getMoney() {
         return money;
     }
+
+    public void subCount() {
+        count -= 1;
+    }
 }
