@@ -30,6 +30,7 @@ public class VendingMachineController {
         List<Item> item = getItems();
         ItemRepository.addItems(item);
         Money enterMoney = getEnterMoney();
+        outputView.printEnterMoney(enterMoney.getMoney());
     }
 
     private Money getEnterMoney() {

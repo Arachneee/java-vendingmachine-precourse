@@ -15,10 +15,15 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printEnterMoney(final int money) {
+        System.out.printf(Response.ENTER_MONEY.getValueForFormat(), money);
+    }
+
     private enum Response {
 
         HOLD_MONEY("자판기가 보유한 동전"),
-        COIN_COUNT("%d원 - %d개");
+        COIN_COUNT("%d원 - %d개"),
+        ENTER_MONEY("투입 금액: %d원");
 
         private final String value;
 
