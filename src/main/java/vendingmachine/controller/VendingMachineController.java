@@ -1,7 +1,8 @@
 package vendingmachine.controller;
 
 
-import vendingmachine.util.Parser;
+import vendingmachine.domain.Money;
+import vendingmachine.util.ExceptionRoofer;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
 
@@ -16,7 +17,14 @@ public class VendingMachineController {
     }
 
     public void run() {
-        String moneySource = inputView.readHoldingMoney();
-        int money = Parser.convertToInt(moneySource);
+        Money money = getHoldingMoney();
+
+    }
+
+    private Money getHoldingMoney() {
+        return ExceptionRoofer.supply(() -> {
+            String moneySource = inputView.readHoldingMoney();
+            return new Money(moneySource);
+        });
     }
 }
