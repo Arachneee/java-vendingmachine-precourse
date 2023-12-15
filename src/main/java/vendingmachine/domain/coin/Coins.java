@@ -1,4 +1,4 @@
-package vendingmachine.domain;
+package vendingmachine.domain.coin;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import vendingmachine.Coin;
+import vendingmachine.domain.Money;
 
 public class Coins {
 

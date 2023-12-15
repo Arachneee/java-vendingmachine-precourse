@@ -1,8 +1,11 @@
 package vendingmachine.controller;
 
 
-import vendingmachine.domain.Coins;
+import java.util.List;
 import vendingmachine.domain.Money;
+import vendingmachine.domain.coin.Coins;
+import vendingmachine.domain.item.Item;
+import vendingmachine.domain.item.ItemParser;
 import vendingmachine.dto.CoinsDto;
 import vendingmachine.util.ExceptionRoofer;
 import vendingmachine.view.InputView;
@@ -23,12 +26,21 @@ public class VendingMachineController {
         Coins coins = Coins.from(money);
         final CoinsDto coinsDto = CoinsDto.from(coins);
         outputView.printCoins(coinsDto);
+        List<Item> item = getItems();
+
     }
 
     private Money getHoldingMoney() {
         return ExceptionRoofer.supply(() -> {
-            String moneySource = inputView.readHoldingMoney();
+            final String moneySource = inputView.readHoldingMoney();
             return new Money(moneySource);
+        });
+    }
+
+    private List<Item> getItems() {
+        return ExceptionRoofer.supply(() -> {
+            final String itemsSource = inputView.readItem();
+            return ItemParser.convertToItems(itemsSource);
         });
     }
 }

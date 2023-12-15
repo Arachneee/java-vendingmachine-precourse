@@ -1,7 +1,7 @@
 package vendingmachine.dto;
 
 import java.util.List;
-import vendingmachine.domain.Coins;
+import vendingmachine.domain.coin.Coins;
 
 public class CoinsDto {
 
