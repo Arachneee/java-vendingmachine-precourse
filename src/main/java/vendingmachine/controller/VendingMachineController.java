@@ -41,8 +41,8 @@ public class VendingMachineController {
             outputView.printEnterMoney(enterMoney.getMoney());
             if (cantBayItem(enterMoney)) {
                 Coins remainCoins = coins.getRemainCoins(enterMoney);
-                final CoinsDto remainCointsDto = CoinsDto.from(remainCoins);
-                outputView.printRemainCoins(remainCointsDto);
+                final CoinsDto remainCoinsDto = CoinsDto.from(remainCoins);
+                outputView.printRemainCoins(remainCoinsDto);
                 break;
             }
             buyItem(enterMoney);
